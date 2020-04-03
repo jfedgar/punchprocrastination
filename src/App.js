@@ -42,9 +42,8 @@ class App extends React.Component {
   }
 
   resolveUniqueID() {
-    let path = window.location.pathname.substring(1);
+    let path = window.location.hash.substring(1);
     let pathLength = path.length
-    console.log(path)
     if (pathLength !== 36) {
       this.generateUnqiueID();
     } else {
@@ -53,11 +52,9 @@ class App extends React.Component {
   }
 
   generateUnqiueID() {
-    console.log('generate unique id')
-    console.log('replace state')
     let newID = uuidv4();
     //window.location.pathname = newID;
-    window.history.pushState({}, document.title, newID);
+    window.history.pushState({}, document.title, '#' + newID);
     this.state['url'] = window.location.href
     this.state['uniqueID'] = newID
   }
@@ -111,7 +108,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('state', this.state)
     return (
       <div className="App">
         <div className="main">
