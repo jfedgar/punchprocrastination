@@ -5,8 +5,8 @@ import {
   BrowserView,
   osName,
 } from "react-device-detect";
-import cal from './assets/30day.png';
 import './App.css';
+import Grid from './Grid.js'
 
 class App extends React.Component {
   state = {
@@ -54,15 +54,8 @@ class App extends React.Component {
             { this.bookMarkInstructions() }
           </BrowserView>
           <div id='calendar'>
-            <div id='grid'></div>
-
+            <Grid />
           </div>
-          {/*
-          <div id='grid' style={{position: 'relative', border: '1px solid black' }}>
-            <img src={cal} className="calendar" alt="logo" style={{position: 'absolute', top:0, left:0 }}/>
-            <div className='innergrid' style={{position: 'absolute', top:0, left:0, border: '1px solid red'}}/>
-          </div>
-          */}
             {/*
             <p>
               Edit <code>src/App.js</code> and save to reload.

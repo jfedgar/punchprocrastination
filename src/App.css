@@ -6,14 +6,13 @@
 .App .main {
   background-color: rgb(106 224 235);
   width: 100%;
-  border: 1px solid black;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 .App #calendar {
@@ -21,16 +20,29 @@
   height: 77.24vw;
   background-image: url('./assets/30day.png');
   background-size: cover;
-  border: 1px solid black;
 }
 
 .App #grid {
-  border: 1px solid red;
   position: relative;
-  top: 24%;
-  left: 7.35%;
-  width: 84.8%;
-  height: 53.75vw;
+  top: 23.5%;
+  left: 6.75%;
+  width: 86%;
+  height: 54.6vw;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.App #grid .gridBox {
+  color: red;
+  position: relative;
+}
+
+.App #grid .gridBox .check {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  font-size: 12vw;
 
 }
 
