@@ -2,12 +2,8 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-.App-main {
+.App .main {
   background-color: rgb(106 224 235);
   width: 100%;
   border: 1px solid black;
@@ -20,7 +16,25 @@
   color: white;
 }
 
-.App img.App-logo {
+.App #calendar {
+  width: 100%;
+  height: 77.24vw;
+  background-image: url('./assets/30day.png');
+  background-size: cover;
+  border: 1px solid black;
+}
+
+.App #grid {
+  border: 1px solid red;
+  position: relative;
+  top: 24%;
+  left: 7.35%;
+  width: 84.8%;
+  height: 53.75vw;
+
+}
+
+.App img.calendar {
   width: 100%;
   height: auto;
 }
