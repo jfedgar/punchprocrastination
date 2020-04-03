@@ -56,7 +56,9 @@ class App extends React.Component {
     console.log('generate unique id')
     console.log('replace state')
     let newID = uuidv4();
-    window.location.pathname = newID;
+    //window.location.pathname = newID;
+    window.history.pushState({}, document.title, newID);
+    this.state['url'] = window.location.href
     this.state['uniqueID'] = newID
   }
 
