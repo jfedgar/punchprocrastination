@@ -10,7 +10,7 @@ import Grid from './Grid.js'
 
 class App extends React.Component {
   state = {
-    url: 'foo',
+    url: window.location.href,
     copied: false,
   }
 
@@ -48,7 +48,7 @@ class App extends React.Component {
         <div className="main">
           <CopyToClipboard text={this.state.url}
             onCopy={() => this.setState({copied: true})}>
-            <span><MdContentCopy />Copy URL To Clipboard</span>
+            <span id='copyButton'><MdContentCopy />Copy URL To Clipboard</span>
           </CopyToClipboard>
           <BrowserView>
             { this.bookMarkInstructions() }

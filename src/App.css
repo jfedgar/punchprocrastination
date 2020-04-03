@@ -6,6 +6,7 @@
 .App .main {
   background-color: rgb(106 224 235);
   width: 100%;
+  border: 1px solid black;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -15,14 +16,20 @@
   color: black;
 }
 
+.App #copyButton:active {
+  opacity: 0.2;
+}
+
 .App #calendar {
   width: 100%;
   height: 77.24vw;
   background-image: url('./assets/30day.png');
   background-size: cover;
+  border: 1px solid black;
 }
 
 .App #grid {
+  border: 1px solid red;
   position: relative;
   top: 23.5%;
   left: 6.75%;
@@ -34,6 +41,7 @@
 }
 
 .App #grid .gridBox {
+  border: 1px solid green;
   color: red;
   position: relative;
 }
