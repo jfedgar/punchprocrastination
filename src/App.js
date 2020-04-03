@@ -1,6 +1,9 @@
 import React from 'react';
+import _ from 'underscore';
+import * as firebase from 'firebase';
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { MdContentCopy } from 'react-icons/md';
+import { v4 as uuidv4 } from 'uuid';
 import {
   BrowserView,
   osName,
@@ -11,7 +14,9 @@ import Grid from './Grid.js'
 class App extends React.Component {
   state = {
     url: window.location.href,
-    copied: false,
+    uniqueID: null,
+    userData: {},
+    copied: false
   }
 
   constructor(props) {
@@ -28,6 +33,67 @@ class App extends React.Component {
     //      Should probably also set as the url value 
 
     super(props)
+    this.resolveUniqueID();
+    this.initializeFirebase();
+  }
+
+  componentDidMount() {
+    this.getFirebaseData();
+  }
+
+  resolveUniqueID() {
+    let path = window.location.pathname.substring(1);
+    let pathLength = path.length
+    console.log(path)
+    if (pathLength !== 36) {
+      this.generateUnqiueID();
+    } else {
+      this.state['uniqueID'] = path;
+    }
+  }
+
+  generateUnqiueID() {
+    console.log('generate unique id')
+    console.log('replace state')
+    let newID = uuidv4();
+    window.location.pathname = newID;
+    this.state['uniqueID'] = newID
+  }
+
+  getFirebaseData() {
+    // We already have data for user:
+    if (!_.isEmpty(this.state.userData)) return false;
+
+    this.state.db.collection("calendars")
+      .doc(this.state.uniqueID)
+      .get()
+      .then((doc) => {
+        this.setState({ userData: doc.data() || {} });
+      })
+      .catch(function(error) {
+        console.error("Error reading document: ", error);
+      });
+  }
+
+  initializeFirebase() {
+    let firebaseConfig = {
+      apiKey: "AIzaSyDEUWWqLD9MXOlxPHhhcT-TicbaIGBH55I",
+      authDomain: "punchprocrastination.firebaseapp.com",
+      databaseURL: "https://punchprocrastination.firebaseio.com",
+      projectId: "punchprocrastination",
+      storageBucket: "punchprocrastination.appspot.com",
+      messagingSenderId: "881349191831",
+      appId: "1:881349191831:web:6776979685e5b82347e1d2",
+      measurementId: "G-Y0D1Y2B65C"
+    };
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    }
+
+    this.state['firebaseConnection'] = firebase
+    this.state['db'] = firebase.firestore();
   }
 
   isMac() {
@@ -36,13 +102,14 @@ class App extends React.Component {
 
   bookMarkInstructions() {
     if (this.isMac) {
-      return <span>Click Command (⌘) + D to add to favorites</span>;
+      return <span>Click Command (⌘) + D to add site to bookmarks</span>;
     } else {
-      return <span>Click CTRL (^) + D to add to favorites</span>;
+      return <span>Click CTRL (^) + D to add site to bookmarks</span>;
     }
   }
 
   render() {
+    console.log('state', this.state)
     return (
       <div className="App">
         <div className="main">
@@ -54,7 +121,12 @@ class App extends React.Component {
             { this.bookMarkInstructions() }
           </BrowserView>
           <div id='calendar'>
-            <Grid />
+            <Grid
+              newUser={this.state.newUser}
+              checkedBoxes={this.state.userData['checkedBoxes'] || []}
+              calendarID={this.state.uniqueID}
+              db={this.state.db}
+            />
           </div>
             {/*
             <p>
