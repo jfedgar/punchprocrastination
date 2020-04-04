@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaCheck } from 'react-icons/fa';
 
 function GridBox(props) {
@@ -8,15 +8,26 @@ function GridBox(props) {
     setChecked(props.checked);
   }, [props.checked]);
 
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    // only send to firebase on updates,
+    //   not on initial mount (which will always be unchecked)
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      sendToFirebase()
+    }
+  }, [checked]);
+
   function handleClick(e) {
     e.preventDefault();
     setChecked(!checked)
-    sendToFirebase(!checked)
   }
 
-  function sendToFirebase(isChecked) {
+  function sendToFirebase() {
     let checkedBoxes = props.checkedBoxes
-    checkedBoxes[props.id] = isChecked;
+    checkedBoxes[props.id] = checked;
     props.db.collection("calendars").doc(props.calendarID).set({
       checkedBoxes:  checkedBoxes,
       activity: props.activity,

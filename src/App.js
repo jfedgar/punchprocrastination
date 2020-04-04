@@ -45,6 +45,7 @@ class App extends React.Component {
 
   resolveUniqueID() {
     let path = window.location.hash.substring(1);
+    if (path === "") { path = window.location.pathname.substring(1) }
     let pathLength = path.length
     if (pathLength !== 36) {
       this.generateUnqiueID();
@@ -56,7 +57,7 @@ class App extends React.Component {
   generateUnqiueID() {
     let newID = uuidv4();
     //window.location.pathname = newID;
-    window.history.pushState({}, document.title, '#' + newID);
+    window.history.pushState({}, document.title, newID);
     this.state['url'] = window.location.href
     this.state['uniqueID'] = newID
   }
@@ -162,13 +163,13 @@ class App extends React.Component {
 
           <footer>
             <div id='bottomExplanation'>
-              This is your unique Punch Calendar but you have to bookmark this page to come back.
+              This is your unique Punch Calendar but you have to bookmark this exact page (including the random text at the end) to come back!
             </div>
 
             <div id='linkInstructions'>
               <CopyToClipboard text={this.state.url}
                 onCopy={() => this.setState({copied: true})}>
-                <span id='copyButton'><MdContentCopy />Copy URL To Clipboard</span>
+                <span id='copyButton'><MdContentCopy />Click Here To Copy URL To Clipboard</span>
               </CopyToClipboard>
               <BrowserView>
                 { this.bookMarkInstructions() }
