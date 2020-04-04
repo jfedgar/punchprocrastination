@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(136 222 233);
+  background-color: #6ae0eb;
   font-family: 'Montserrat', sans-serif;
   color: rgb(42 82 91);
   font-size: 1.6vw;
@@ -11,15 +11,7 @@ body {
 
 .App #main {
   width: 100%;
-  /*display: flex;*/
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
-}
-
-.App #copyButton:active {
-  opacity: 0.2;
 }
 
 .App #header {
@@ -46,7 +38,7 @@ body {
   border-right-style: hidden;
   border-left-style: hidden;
   border-bottom-style: groove;
-  background-color: rgb(136 222 233);
+  background-color: #6ae0eb;
   font-size: 1.5vw;
 }
 
@@ -89,3 +81,35 @@ body {
 .App-link {
   color: #61dafb;
 }
+
+.App footer #bottomExplanation {
+  position: relative;
+  top: -4.5vw;
+  width: 50%;
+  margin: 0px auto;
+}
+
+.App footer #linkInstructions {
+  position: relative;
+  top: -1.8vw;
+}
+
+.App footer  #copyButton {
+  font-size: 2vw;
+  cursor: pointer;
+}
+
+.App footer #copyButton:active {
+  opacity: 0.2;
+}
+
+.App footer #bookmarkInstructions {
+  font-size: 1.4vw;
+}
+
+.App footer #copyright {
+  margin-top: 1.5vw;
+  font-size: 1.1vw;
+}
+
+

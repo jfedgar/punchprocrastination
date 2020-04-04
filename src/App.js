@@ -106,9 +106,9 @@ class App extends React.Component {
 
   bookMarkInstructions() {
     if (this.isMac) {
-      return <span>Click Command (⌘) + D to add site to bookmarks</span>;
+      return <span id='bookmarkInstructions'>Or hit Command (⌘) + D to add site to bookmarks</span>;
     } else {
-      return <span>Click CTRL (^) + D to add site to bookmarks</span>;
+      return <span id='bookmarkInstructions'>Or hit CTRL (^) + D to add site to bookmarks</span>;
     }
   }
 
@@ -160,13 +160,26 @@ class App extends React.Component {
             />
           </div>
 
-          <CopyToClipboard text={this.state.url}
-            onCopy={() => this.setState({copied: true})}>
-            <span id='copyButton'><MdContentCopy />Copy URL To Clipboard</span>
-          </CopyToClipboard>
-          <BrowserView>
-            { this.bookMarkInstructions() }
-          </BrowserView>
+          <footer>
+            <div id='bottomExplanation'>
+              This is your unique Punch Calendar but you have to bookmark this page to come back.
+            </div>
+
+            <div id='linkInstructions'>
+              <CopyToClipboard text={this.state.url}
+                onCopy={() => this.setState({copied: true})}>
+                <span id='copyButton'><MdContentCopy />Copy URL To Clipboard</span>
+              </CopyToClipboard>
+              <BrowserView>
+                { this.bookMarkInstructions() }
+              </BrowserView>
+            </div>
+
+            <div id='copyright'>
+              Copyright © Daniel M. White and Joseph Edgar 2020.<br/>
+              All rights reserved.
+            </div>
+          </footer>
         </div>
       </div>
     );
