@@ -1,47 +1,74 @@
+body {
+  background-color: rgb(136 222 233);
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(42 82 91);
+  font-size: 1.6vw;
+}
+
 .App {
   text-align: center;
 }
 
-
-.App .main {
-  background-color: rgb(106 224 235);
+.App #main {
   width: 100%;
-  border: 1px solid black;
-  min-height: 100vh;
-  display: flex;
+  /*display: flex;*/
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: black;
 }
 
 .App #copyButton:active {
   opacity: 0.2;
 }
 
+.App #header {
+  width: 100%;
+  background-image: url('./assets/header.png');
+  background-size: cover;
+  background-position: center bottom;
+  height: 22.72vw;
+}
+
+.App #header #activityBox {
+  width: 25%;
+  height: 7vw;
+  position: relative;
+  top: 85%;
+  left: 70%;
+}
+
+.App #header #activityBox input {
+  margin-left: .5vw;
+  height: 2vw;
+  width: 10vw;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  background-color: rgb(136 222 233);
+  font-size: 1.5vw;
+}
+
 .App #calendar {
   width: 100%;
   height: 77.24vw;
-  background-image: url('./assets/30day.png');
+  background-image: url('./assets/calendar.png');
   background-size: cover;
-  border: 1px solid black;
 }
 
 .App #grid {
-  border: 1px solid red;
   position: relative;
-  top: 23.5%;
-  left: 6.75%;
-  width: 86%;
-  height: 54.6vw;
+  top: 13.3%;
+  left: 3.3%;
+  width: 93%;
+  height: 59vw;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(5, 1fr);
 }
 
 .App #grid .gridBox {
-  border: 1px solid green;
   color: red;
   position: relative;
 }

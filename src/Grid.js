@@ -23,6 +23,7 @@ class Grid extends React.Component {
           checkedBoxes={checkedBoxesArray}
           calendarID={this.props.calendarID}
           db={this.props.db}
+          activity={this.props.activity}
         />
       );
     });

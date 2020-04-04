@@ -8,6 +8,7 @@ import {
   BrowserView,
   osName,
 } from "react-device-detect";
+import logo from './assets/header.png'
 import './App.css';
 import Grid from './Grid.js'
 
@@ -16,7 +17,8 @@ class App extends React.Component {
     url: window.location.href,
     uniqueID: null,
     userData: {},
-    copied: false
+    copied: false,
+    activity: ""
   }
 
   constructor(props) {
@@ -67,7 +69,10 @@ class App extends React.Component {
       .doc(this.state.uniqueID)
       .get()
       .then((doc) => {
-        this.setState({ userData: doc.data() || {} });
+        this.setState({
+          userData: doc.data() || {},
+          activity: doc.data().activity
+        });
       })
       .catch(function(error) {
         console.error("Error reading document: ", error);
@@ -107,10 +112,54 @@ class App extends React.Component {
     }
   }
 
+  updateActivity(e) {
+    e.preventDefault();
+    this.setState({ activity: e.target.value }, () => {
+      this.sendActivityToFirebase();
+    });
+
+  }
+
+  sendActivityToFirebase() {
+    this.state.db.collection("calendars").doc(this.state.uniqueID).set({
+      checkedBoxes:  this.state.userData.checkedBoxes || [],
+      activity: this.state.activity,
+      lastUpdated: Date.now()
+    })
+    .then(function() {
+      console.log("Document successfully written!");
+    })
+    .catch(function(error) {
+      console.error("Error writing document: ", error);
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="main">
+        <div id="header">
+          <div id="activityBox">
+            My Thing:
+            <input
+              type="text"
+              name="activity"
+              onChange={this.updateActivity.bind(this)}
+              value={this.state.activity}
+            />
+          </div>
+        </div>
+
+        <div id="main">
+          <div id='calendar'>
+            <Grid
+              newUser={this.state.newUser}
+              checkedBoxes={this.state.userData['checkedBoxes'] || []}
+              calendarID={this.state.uniqueID}
+              db={this.state.db}
+              activity={this.state.activity}
+            />
+          </div>
+
           <CopyToClipboard text={this.state.url}
             onCopy={() => this.setState({copied: true})}>
             <span id='copyButton'><MdContentCopy />Copy URL To Clipboard</span>
@@ -118,27 +167,6 @@ class App extends React.Component {
           <BrowserView>
             { this.bookMarkInstructions() }
           </BrowserView>
-          <div id='calendar'>
-            <Grid
-              newUser={this.state.newUser}
-              checkedBoxes={this.state.userData['checkedBoxes'] || []}
-              calendarID={this.state.uniqueID}
-              db={this.state.db}
-            />
-          </div>
-            {/*
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-            */}
         </div>
       </div>
     );

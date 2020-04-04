@@ -19,6 +19,7 @@ function GridBox(props) {
     checkedBoxes[props.id] = isChecked;
     props.db.collection("calendars").doc(props.calendarID).set({
       checkedBoxes:  checkedBoxes,
+      activity: props.activity,
       lastUpdated: Date.now()
     })
     .then(function() {
