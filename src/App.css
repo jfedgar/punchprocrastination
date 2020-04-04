@@ -63,6 +63,7 @@ body {
 .App #grid .gridBox {
   color: red;
   position: relative;
+  cursor: pointer;
 }
 
 .App #grid .gridBox .check {
